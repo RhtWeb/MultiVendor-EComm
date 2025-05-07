@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 
 import { Navbar } from "@/components/common/Navbar";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { SideBar } from "@/components/common/SideBar";
+// import { SidebarProvider } from "@/components/ui/sidebar";
+// import { SideBar } from "@/components/common/SideBar";
+import { Footer } from "@/components/common/Footer";
 
 type rootPropsType = Readonly<{
   children : React.ReactNode;
@@ -17,17 +18,22 @@ export default function RootLayout({ children } : rootPropsType){
 
   return (
     <div className="flex flex-col min-h-screen">
-      <SidebarProvider defaultOpen={false}>
-        {/* <SidebarTrigger /> */}
+      {/* <SidebarProvider defaultOpen={false}>
         <div className="lg:hidden">
           <SideBar />
         </div>
         <main className="flex flex-col w-full">
           
           <Navbar /> 
-          {children}
+            {children}
+          <Footer />
         </main>
-      </SidebarProvider>
+      </SidebarProvider> */}
+      <Navbar />
+      <div className="flex-1">
+        {children}
+      </div>
+      <Footer />
     </div>
   )
 }

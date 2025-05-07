@@ -1,9 +1,14 @@
 "use client"
+import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import { NavSideBar } from "./NavSideBar";
+
+import { MenuIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation";
-import { SidebarTrigger } from "../ui/sidebar";
+// import { SidebarTrigger } from "../ui/sidebar";
 
 export interface NavbarItemProps {
   href: string,
@@ -54,13 +59,20 @@ export const navbarItemList = [
 
 const Navbar = () => {
 
-  const pathname = usePathname()
+  const pathname = usePathname();
+  const [ isSidebarOpen, setIsSidebarOpen ] = useState(false)
 
   return (
     <nav className="h-20 flex border-b justify-between font-medium bg-white w-full">
       <Link href="/" className="pl-6 flex items-center">
         <span className="text-3xl font-semibold">RHT ECom</span>
       </Link>
+
+      <NavSideBar 
+        items={navbarItemList}
+        open={isSidebarOpen}
+        onOpenChange={setIsSidebarOpen}
+      />
       
       <div className="items-center gap-4 hidden lg:flex">
         { navbarItemList.map((navItem) => (
@@ -74,9 +86,21 @@ const Navbar = () => {
         <Link href={"/sign-in"} className="flex-1/2 text-center h-full content-center hover:bg-main hover:text-black">Login</Link>
         <Link href={"/sign-up"} className="bg-black text-white h-full content-center flex-1/2 text-center hover:bg-main hover:text-black">Start Selling</Link>
       </div>
-      <div className="lg:hidden flex items-center">
-        <SidebarTrigger />
+
+      <div className="flex lg:hidden items-center justify-center">
+        <Button 
+          variant="noShadow"
+          onClick={() => setIsSidebarOpen(true)}
+          className="m-4"
+        >
+          <MenuIcon />
+        </Button>
       </div>
+
+
+      {/* <div className="lg:hidden flex items-center">
+        <SidebarTrigger />
+      </div> */}
         
     </nav>
   )
